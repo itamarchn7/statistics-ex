@@ -1,0 +1,30 @@
+name: CI Pipeline - Python Web App
+
+on:
+  push:
+    branches: [ "main" ]
+  
+env:
+  IMAGE_NAME: my-python-app
+  VALUES_FILE: helm/values.yaml
+  BASE_VERSION: '1.0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️ Checkout code
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      # 2 Calculate version
+      - name: Calculate SemVer
+        id: version
+        run: |          
+          PATCH=${{ github.run_number }}
+          echo "IMAGE_TAG=${BASE_VERSION}.${PATCH}" >> $GITHUB_ENV
+
+      # 3 Build Docker image
+      - name: Build Docker image
+        run: docker build -t $IMAGE_NAME:${IMAGE_TAG} .

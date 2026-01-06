@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-python-app
+  namespace: statis-app
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: my-app.local
+      http:
+        paths:
+          - path: /my-app
+            pathType: Prefix
+            backend:
+              service:
+                name: my-python-app
+                port:
+                  number: 80
+
