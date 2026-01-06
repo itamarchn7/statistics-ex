@@ -90,3 +90,14 @@ See Dockerfile:
 
 ### Packaging tooling
 Helm was chosen to package Kubernetes resources into a reusable, configurable chart, enabling versioned deployments and easy upgrades instead of managing raw manifests. Image tags are explicitly versioned to ensure reproducible deployments.
+
+```bash
+helm upgrade statis-app ./helm -n statis-app --set image.tag=<IMAGE_TAG>
+```
+
+Verify application running in cluster:
+Helm status: 	helm list -n statis-app
+Pods:			kubectl get pods -n statis-app
+Service:		kubectl get svc -n statis-app
+Ingress:		kubectl get ingress -n statis-app
+Browser:		http://statis-app.local/my-app
