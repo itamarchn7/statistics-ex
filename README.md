@@ -81,7 +81,7 @@ verify in browser with: http://my-app.local/my-app
 
 
 ### Automation
-
+Added Github action pipeline: Build Docker image with new SEMVER in tag, Push the docker image to Docker Hub, Helm upgrades Helm chart in the cluster. 
 
 ### Security hardening
 See Dockerfile:
@@ -89,4 +89,4 @@ See Dockerfile:
 * minimal base image:       python:3.12-slim
 
 ### Packaging tooling
-
+Helm was chosen to package Kubernetes resources into a reusable, configurable chart, enabling versioned deployments and easy upgrades instead of managing raw manifests. Image tags are explicitly versioned to ensure reproducible deployments.
