@@ -15,7 +15,7 @@ hello_world_counter = Counter(
 @app.route("/my-app")
 def my_app():
     hello_world_counter.inc()
-    return "Hello, World! 202"
+    return "Hello, World! 203"
 
 @app.route("/about")
 def about():
