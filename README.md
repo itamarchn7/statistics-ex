@@ -6,6 +6,7 @@
 This repository contains a simple Python Flask web application that is containerized with Docker and deployed to Kubernetes.
 
 The goal is to build a small Python web application, containerize it, and deploy it to Kubernetes.
+
 ---
 
 ## Step 1 - Application
@@ -29,12 +30,11 @@ docker build -t my-python-app:1.0.0 .
 docker run -p 8081:8080 my-python-app:1.0.0
 ```
 
-### Verify app in browser
-http://127.0.0.1:8081/my-app
+Verify app in browser: http://127.0.0.1:8081/my-app
 
 
 ## Step 3 - Kubernetes Deployment
-See all kubernetes files under k8s folder
+All kubernetes files under k8s folder:
 
 ### Create statis-app namespace:
 ```bash
@@ -46,6 +46,7 @@ kubectl apply -f .\k8s\namespace.yaml
 kubectl apply -f .\k8s\deployment.yaml
 kubectl apply -f .\k8s\service.yaml
 ```
+
 
 ## Step 4 - Exposure
 
@@ -67,6 +68,7 @@ kubectl apply -f .\k8s\ingress.yaml
 ```
 verify in browser with: http://my-app.local/my-app
 
+
 ## Optional Enhancements
 
 ### Basic observability
@@ -77,11 +79,11 @@ verify in browser with: http://my-app.local/my-app
   If it fails, the pod is temporarily removed from the Service load balancing without restarting it.
 * A /metrics endpoint exposes numerical application metrics in a format that monitoring systems (Prometheus) can scrape.
 
-### Configuration management 
-
 
 ### Automation
-Added Github action pipeline: Build Docker image with new SEMVER in tag, Push the docker image to Docker Hub, Helm upgrades Helm chart in the cluster. 
+Added Github action pipeline: 
+* Build Docker image with new SEMVER in tag 
+* Push the docker image to Docker Hub 
 
 ### Security hardening
 See Dockerfile:
@@ -96,8 +98,12 @@ helm upgrade statis-app ./helm -n statis-app --set image.tag=<IMAGE_TAG>
 ```
 
 Verify application running in cluster:
+```bash
 Helm status: 	helm list -n statis-app
 Pods:			kubectl get pods -n statis-app
 Service:		kubectl get svc -n statis-app
 Ingress:		kubectl get ingress -n statis-app
+```
 Browser:		http://statis-app.local/my-app
+
+![From cluster and browser](image.png)
